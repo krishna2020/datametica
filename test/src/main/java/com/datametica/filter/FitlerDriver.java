@@ -18,13 +18,11 @@ public class FitlerDriver extends Configured implements Tool {
 
 	public int run(String[] arg) throws Exception {
 
-		//Default asc order
-		// if (args.length != 4) {
-		// logger.error("Usage: %s [generic options] <comma seperated input>
-		// <output> <reduceTasks> <localpath>");
-		// ToolRunner.printGenericCommandUsage(System.err);
-		// System.exit(-1);
-		// }
+		if (arg.length != 4) {
+			logger.error("Usage: %s [generic options] <input>  <output>");
+			ToolRunner.printGenericCommandUsage(System.err);
+			System.exit(-1);
+		}
 		Configuration conf = getConf();
 		String[] args = new GenericOptionsParser(conf, arg).getRemainingArgs();
 		String inputPath = args[0];
@@ -33,10 +31,11 @@ public class FitlerDriver extends Configured implements Tool {
 		Job job = Job.getInstance(conf, "Filter Job");
 		job.setJarByClass(FitlerDriver.class);
 		job.setMapperClass(FilterMapper.class);
+		job.setNumReduceTasks(0);
 		job.setInputFormatClass(TextInputFormat.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
-		
+
 		FileInputFormat.addInputPath(job, new Path(inputPath));
 		FileOutputFormat.setOutputPath(job, new Path(outputPath));
 

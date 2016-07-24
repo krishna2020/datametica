@@ -6,14 +6,28 @@ import java.io.IOException;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.io.WritableComparable;
 
-import com.datametica.util.Util;
+import com.datametica.util.Util;;
 
-public class TweetKeyPair implements WritableComparable<TweetKeyPair> {
+public class TweetKeyPair implements Writable, WritableComparable<TweetKeyPair> {
 
 	private Text emp_id;
 	private LongWritable timestamp;
+
+	public TweetKeyPair() {
+		set(new Text(), new LongWritable());
+	}
+
+	public TweetKeyPair(String emp_id, Long timestamp) {
+		set(new Text(emp_id), new LongWritable(timestamp));
+	}
+
+	public void set(Text emp_id, LongWritable timestamp) {
+		this.emp_id = emp_id;
+		this.timestamp = timestamp;
+	}
 
 	public Text getEmp_id() {
 		return emp_id;

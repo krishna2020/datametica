@@ -20,19 +20,18 @@ public class TweetDriver extends Configured implements Tool {
 
 	public int run(String[] arg) throws Exception {
 
-		//Default asc order
-		// if (args.length != 4) {
-		// logger.error("Usage: %s [generic options] <comma seperated input>
-		// <output> <reduceTasks> <localpath>");
-		// ToolRunner.printGenericCommandUsage(System.err);
-		// System.exit(-1);
-		// }
+		// Default asc order
+		if (arg.length != 3) {
+			logger.error("Usage: %s [generic options] <input> <output> <sortorder>");
+			ToolRunner.printGenericCommandUsage(System.err);
+			System.exit(-1);
+		}
 		Configuration conf = getConf();
 		String[] args = new GenericOptionsParser(conf, arg).getRemainingArgs();
 		String inputPath = args[0];
 		String outputPath = args[1];
 		String sortOrder = args[2];
-		if(sortOrder.equalsIgnoreCase(Util.descOrder))
+		if (sortOrder.equalsIgnoreCase(Util.descOrder))
 			Util.sortOrder = -1;
 
 		Job job = Job.getInstance(conf, "Tweets Sorting Job");
@@ -43,10 +42,10 @@ public class TweetDriver extends Configured implements Tool {
 		job.setMapOutputKeyClass(TweetKeyPair.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
-		
+
 		job.setGroupingComparatorClass(TweetGroupComparator.class);
 		job.setPartitionerClass(TweetPartitioner.class);
-		
+
 		FileInputFormat.addInputPath(job, new Path(inputPath));
 		FileOutputFormat.setOutputPath(job, new Path(outputPath));
 

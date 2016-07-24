@@ -24,7 +24,7 @@ public class FilterMapper extends Mapper<LongWritable, Text, Text, Text> {
 			return;
 		String record = value.toString();
 		String[] columns = record.split(",");
-		if (columns[2].contains(Util.word))
-			context.write(null, new Text(columns[0] + "," + columns[1]));
+		if (columns[1].contains(Util.word))
+			context.write(new Text(columns[0] + "," + columns[1]), new Text());
 	}
 }

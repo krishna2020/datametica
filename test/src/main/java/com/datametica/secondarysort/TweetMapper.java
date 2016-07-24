@@ -2,6 +2,7 @@ package com.datametica.secondarysort;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -25,7 +26,7 @@ public class TweetMapper extends Mapper<LongWritable, Text, TweetKeyPair, Text> 
 		String record = value.toString();
 		String[] columns = record.split(",");
 		keyPair.setEmp_id(new Text(columns[0]));
-		keyPair.setTimestamp(new LongWritable(Date.valueOf(columns[1]).getTime()));
+		keyPair.setTimestamp(new LongWritable(Timestamp.valueOf(columns[1]).getTime()));
 
 		context.write(keyPair, value);
 	}

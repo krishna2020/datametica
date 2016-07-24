@@ -6,7 +6,7 @@ import org.apache.hadoop.io.WritableComparator;
 public class TweetGroupComparator extends WritableComparator {
 	
 	public TweetGroupComparator() {
-		super();
+		super(TweetKeyPair.class, true);
 	}
 	
 	@Override
