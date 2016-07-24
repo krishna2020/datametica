@@ -1,3 +1,5 @@
-A = LOAD '$inputFile' using PigStorage(',') AS (commentID: chararray,commentDescription:chararray,userID:chararray);
-B = FILTER A BY (commentDescription);
-STORE B INTO '$outputFile' using PigStorage(',');
+REGISTER '$pigudfjar';
+
+A = LOAD '$input' using PigStorage(',') AS (commentID: chararray,commentDescription:chararray,userID:chararray);
+B = FOREACH (FILTER A BY com.datametica.util.filterUDF(commentDescription) == 'exists') GENERATE $0, $1;
+STORE B INTO '$output' using PigStorage(',');
