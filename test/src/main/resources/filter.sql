@@ -3,4 +3,4 @@ CREATE EXTERNAL TABLE filter(commentID STRING,commentDescription STRING,userID S
  STORED AS TEXTFILE
  LOCATION '/user/cloudera/input';
  
- select commentid, commentdescription from filter where commentdescription like '%Hadoop%';
+CREATE TABLE output AS SELECT commentid, commentdescription from filter where commentdescription like '%Hadoop%';

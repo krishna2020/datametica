@@ -13,6 +13,13 @@
 			<scope>system</scope>
 			<systemPath>C:/Program Files/Java/jdk1.7.0_79/lib/tools.jar</systemPath>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.pig/pig -->
+		<dependency>
+			<groupId>org.apache.pig</groupId>
+			<artifactId>pig</artifactId>
+			<version>0.16.0</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-mapreduce-client-core -->
 		<dependency>

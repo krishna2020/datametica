@@ -13,16 +13,14 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import org.apache.log4j.Logger;
 
-import com.datametica.util.Util;
-
 public class TweetDriver extends Configured implements Tool {
 	private static Logger logger = Logger.getLogger(Job.class);
 
 	public int run(String[] arg) throws Exception {
 
 		// Default asc order
-		if (arg.length != 3) {
-			logger.error("Usage: %s [generic options] <input> <output> <sortorder>");
+		if (arg.length != 2) {
+			logger.error("Usage: %s [generic options] <input> <output>");
 			ToolRunner.printGenericCommandUsage(System.err);
 			System.exit(-1);
 		}
@@ -30,9 +28,6 @@ public class TweetDriver extends Configured implements Tool {
 		String[] args = new GenericOptionsParser(conf, arg).getRemainingArgs();
 		String inputPath = args[0];
 		String outputPath = args[1];
-		String sortOrder = args[2];
-		if (sortOrder.equalsIgnoreCase(Util.descOrder))
-			Util.sortOrder = -1;
 
 		Job job = Job.getInstance(conf, "Tweets Sorting Job");
 		job.setJarByClass(TweetDriver.class);
